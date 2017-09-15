@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ocf.data.dao.BudgeAccountMapper">
+  <resultMap id="BaseResultMap" type="ocf.data.entity.BudgeAccount">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="is_disable" jdbcType="VARCHAR" property="isDisable" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="balance" jdbcType="INTEGER" property="balance" />
+    <result column="pay" jdbcType="INTEGER" property="pay" />
+    <result column="tolerance" jdbcType="INTEGER" property="tolerance" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, is_disable, create_time, owner_id, account_name, admin_id, balance, pay, tolerance
+  </sql>
+  <select id="selectByExample" parameterType="ocf.data.entity.BudgeAccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from budge_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from budge_account
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from budge_account
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="ocf.data.entity.BudgeAccountExample">
+    delete from budge_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ocf.data.entity.BudgeAccount">
+    insert into budge_account (id, is_disable, create_time, 
+      owner_id, account_name, admin_id, 
+      balance, pay, tolerance
+      )
+    values (#{id,jdbcType=VARCHAR}, #{isDisable,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{ownerId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{adminId,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=INTEGER}, #{pay,jdbcType=INTEGER}, #{tolerance,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="ocf.data.entity.BudgeAccount">
+    insert into budge_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="isDisable != null">
+        is_disable,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="pay != null">
+        pay,
+      </if>
+      <if test="tolerance != null">
+        tolerance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisable != null">
+        #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null">
+        #{pay,jdbcType=INTEGER},
+      </if>
+      <if test="tolerance != null">
+        #{tolerance,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ocf.data.entity.BudgeAccountExample" resultType="java.lang.Integer">
+    select count(*) from budge_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update budge_account
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDisable != null">
+        is_disable = #{record.isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.ownerId != null">
+        owner_id = #{record.ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountName != null">
+        account_name = #{record.accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null">
+        admin_id = #{record.adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null">
+        balance = #{record.balance,jdbcType=INTEGER},
+      </if>
+      <if test="record.pay != null">
+        pay = #{record.pay,jdbcType=INTEGER},
+      </if>
+      <if test="record.tolerance != null">
+        tolerance = #{record.tolerance,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update budge_account
+    set id = #{record.id,jdbcType=VARCHAR},
+      is_disable = #{record.isDisable,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      owner_id = #{record.ownerId,jdbcType=VARCHAR},
+      account_name = #{record.accountName,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=VARCHAR},
+      balance = #{record.balance,jdbcType=INTEGER},
+      pay = #{record.pay,jdbcType=INTEGER},
+      tolerance = #{record.tolerance,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ocf.data.entity.BudgeAccount">
+    update budge_account
+    <set>
+      <if test="isDisable != null">
+        is_disable = #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null">
+        pay = #{pay,jdbcType=INTEGER},
+      </if>
+      <if test="tolerance != null">
+        tolerance = #{tolerance,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ocf.data.entity.BudgeAccount">
+    update budge_account
+    set is_disable = #{isDisable,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=INTEGER},
+      pay = #{pay,jdbcType=INTEGER},
+      tolerance = #{tolerance,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="ocf.data.entity.BudgeAccount">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="is_disable" jdbcType="VARCHAR" property="isDisable" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="balance" jdbcType="INTEGER" property="balance" />
+    <result column="pay" jdbcType="INTEGER" property="pay" />
+    <result column="tolerance" jdbcType="INTEGER" property="tolerance" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, is_disable, create_time, owner_id, account_name, admin_id, balance, pay, tolerance
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from budge_account
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from budge_account
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="ocf.data.entity.BudgeAccount">
+    insert into budge_account (id, is_disable, create_time, 
+      owner_id, account_name, admin_id, 
+      balance, pay, tolerance
+      )
+    values (#{id,jdbcType=VARCHAR}, #{isDisable,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{ownerId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{adminId,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=INTEGER}, #{pay,jdbcType=INTEGER}, #{tolerance,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="ocf.data.entity.BudgeAccount">
+    insert into budge_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="isDisable != null">
+        is_disable,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="pay != null">
+        pay,
+      </if>
+      <if test="tolerance != null">
+        tolerance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisable != null">
+        #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null">
+        #{pay,jdbcType=INTEGER},
+      </if>
+      <if test="tolerance != null">
+        #{tolerance,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ocf.data.entity.BudgeAccountExample" resultType="java.lang.Integer">
+    select count(*) from budge_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="ocf.data.entity.BudgeAccount">
+    update budge_account
+    <set>
+      <if test="isDisable != null">
+        is_disable = #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null">
+        pay = #{pay,jdbcType=INTEGER},
+      </if>
+      <if test="tolerance != null">
+        tolerance = #{tolerance,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ocf.data.entity.BudgeAccount">
+    update budge_account
+    set is_disable = #{isDisable,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=INTEGER},
+      pay = #{pay,jdbcType=INTEGER},
+      tolerance = #{tolerance,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

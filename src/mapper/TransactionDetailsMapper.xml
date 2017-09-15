@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ocf.data.dao.TransactionDetailsMapper">
+  <resultMap id="BaseResultMap" type="ocf.data.entity.TransactionDetails">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="is_disable" jdbcType="VARCHAR" property="isDisable" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+    <result column="main_account_id" jdbcType="VARCHAR" property="mainAccountId" />
+    <result column="rel_account_id" jdbcType="VARCHAR" property="relAccountId" />
+    <result column="detail_name" jdbcType="VARCHAR" property="detailName" />
+    <result column="detail_type" jdbcType="VARCHAR" property="detailType" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, is_disable, create_time, date, main_account_id, rel_account_id, detail_name, 
+    detail_type, amount, remark, operator_name
+  </sql>
+  <select id="selectByExample" parameterType="ocf.data.entity.TransactionDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from transaction_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transaction_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from transaction_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="ocf.data.entity.TransactionDetailsExample">
+    delete from transaction_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ocf.data.entity.TransactionDetails">
+    insert into transaction_details (id, is_disable, create_time, 
+      date, main_account_id, rel_account_id, 
+      detail_name, detail_type, amount, 
+      remark, operator_name)
+    values (#{id,jdbcType=VARCHAR}, #{isDisable,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{date,jdbcType=VARCHAR}, #{mainAccountId,jdbcType=VARCHAR}, #{relAccountId,jdbcType=VARCHAR}, 
+      #{detailName,jdbcType=VARCHAR}, #{detailType,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ocf.data.entity.TransactionDetails">
+    insert into transaction_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="isDisable != null">
+        is_disable,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="mainAccountId != null">
+        main_account_id,
+      </if>
+      <if test="relAccountId != null">
+        rel_account_id,
+      </if>
+      <if test="detailName != null">
+        detail_name,
+      </if>
+      <if test="detailType != null">
+        detail_type,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="operatorName != null">
+        operator_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisable != null">
+        #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAccountId != null">
+        #{mainAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccountId != null">
+        #{relAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailName != null">
+        #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailType != null">
+        #{detailType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ocf.data.entity.TransactionDetailsExample" resultType="java.lang.Integer">
+    select count(*) from transaction_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="ocf.data.entity.TransactionDetails">
+    update transaction_details
+    <set>
+      <if test="isDisable != null">
+        is_disable = #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAccountId != null">
+        main_account_id = #{mainAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccountId != null">
+        rel_account_id = #{relAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailName != null">
+        detail_name = #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailType != null">
+        detail_type = #{detailType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ocf.data.entity.TransactionDetails">
+    update transaction_details
+    set is_disable = #{isDisable,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      date = #{date,jdbcType=VARCHAR},
+      main_account_id = #{mainAccountId,jdbcType=VARCHAR},
+      rel_account_id = #{relAccountId,jdbcType=VARCHAR},
+      detail_name = #{detailName,jdbcType=VARCHAR},
+      detail_type = #{detailType,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      operator_name = #{operatorName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="ocf.data.entity.TransactionDetails">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="is_disable" jdbcType="VARCHAR" property="isDisable" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+    <result column="main_account_id" jdbcType="VARCHAR" property="mainAccountId" />
+    <result column="rel_account_id" jdbcType="VARCHAR" property="relAccountId" />
+    <result column="detail_name" jdbcType="VARCHAR" property="detailName" />
+    <result column="detail_type" jdbcType="VARCHAR" property="detailType" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, is_disable, create_time, date, main_account_id, rel_account_id, detail_name, 
+    detail_type, amount, remark, operator_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transaction_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from transaction_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="ocf.data.entity.TransactionDetails">
+    insert into transaction_details (id, is_disable, create_time, 
+      date, main_account_id, rel_account_id, 
+      detail_name, detail_type, amount, 
+      remark, operator_name)
+    values (#{id,jdbcType=VARCHAR}, #{isDisable,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{date,jdbcType=VARCHAR}, #{mainAccountId,jdbcType=VARCHAR}, #{relAccountId,jdbcType=VARCHAR}, 
+      #{detailName,jdbcType=VARCHAR}, #{detailType,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ocf.data.entity.TransactionDetails">
+    insert into transaction_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="isDisable != null">
+        is_disable,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="mainAccountId != null">
+        main_account_id,
+      </if>
+      <if test="relAccountId != null">
+        rel_account_id,
+      </if>
+      <if test="detailName != null">
+        detail_name,
+      </if>
+      <if test="detailType != null">
+        detail_type,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="operatorName != null">
+        operator_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisable != null">
+        #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAccountId != null">
+        #{mainAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccountId != null">
+        #{relAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailName != null">
+        #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailType != null">
+        #{detailType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ocf.data.entity.TransactionDetailsExample" resultType="java.lang.Integer">
+    select count(*) from transaction_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="ocf.data.entity.TransactionDetails">
+    update transaction_details
+    <set>
+      <if test="isDisable != null">
+        is_disable = #{isDisable,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAccountId != null">
+        main_account_id = #{mainAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccountId != null">
+        rel_account_id = #{relAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailName != null">
+        detail_name = #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailType != null">
+        detail_type = #{detailType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ocf.data.entity.TransactionDetails">
+    update transaction_details
+    set is_disable = #{isDisable,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      date = #{date,jdbcType=VARCHAR},
+      main_account_id = #{mainAccountId,jdbcType=VARCHAR},
+      rel_account_id = #{relAccountId,jdbcType=VARCHAR},
+      detail_name = #{detailName,jdbcType=VARCHAR},
+      detail_type = #{detailType,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      operator_name = #{operatorName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

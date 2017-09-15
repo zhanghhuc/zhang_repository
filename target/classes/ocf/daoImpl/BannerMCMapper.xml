@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ocf.dao.BannerMCMapper" >
+  <resultMap id="BaseResultMap" type="ocf.entity.BannerMC" >
+    <id column="banner_id" property="bannerId" jdbcType="INTEGER" />
+    <result column="banner_code" property="bannerCode" jdbcType="VARCHAR" />
+    <result column="is_disable" property="isDisable" jdbcType="TINYINT" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="is_active" property="isActive" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="time_sign" property="timeSign" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="banner_to_url" property="bannerToUrl" jdbcType="VARCHAR" />
+    <result column="banner_type" property="bannerType" jdbcType="TINYINT" />
+    <result column="remove_time" property="removeTime" jdbcType="BIGINT" />
+    <result column="remove_content" property="removeContent" jdbcType="VARCHAR" />
+    <result column="auto_show_time" property="autoShowTime" jdbcType="BIGINT" />
+    <result column="auto_hidden_time" property="autoHiddenTime" jdbcType="BIGINT" />
+    <result column="site" property="site" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    banner_id, banner_code, is_disable, is_delete, is_active, create_time, time_sign, 
+    remark, banner_url, banner_to_url, banner_type, remove_time, remove_content, auto_show_time, 
+    auto_hidden_time, site
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ocf.entity.BannerMCExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from banner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ocf.entity.BannerMCExample" >
+    delete from banner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ocf.entity.BannerMC" >
+    insert into banner (banner_id, banner_code, is_disable, 
+      is_delete, is_active, create_time, 
+      time_sign, remark, banner_url, 
+      banner_to_url, banner_type, remove_time, 
+      remove_content, auto_show_time, auto_hidden_time, 
+      site)
+    values (#{bannerId,jdbcType=INTEGER}, #{bannerCode,jdbcType=VARCHAR}, #{isDisable,jdbcType=TINYINT}, 
+      #{isDelete,jdbcType=TINYINT}, #{isActive,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{timeSign,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{bannerUrl,jdbcType=VARCHAR}, 
+      #{bannerToUrl,jdbcType=VARCHAR}, #{bannerType,jdbcType=TINYINT}, #{removeTime,jdbcType=BIGINT}, 
+      #{removeContent,jdbcType=VARCHAR}, #{autoShowTime,jdbcType=BIGINT}, #{autoHiddenTime,jdbcType=BIGINT}, 
+      #{site,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="ocf.entity.BannerMC" >
+    insert into banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        banner_id,
+      </if>
+      <if test="bannerCode != null" >
+        banner_code,
+      </if>
+      <if test="isDisable != null" >
+        is_disable,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="timeSign != null" >
+        time_sign,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url,
+      </if>
+      <if test="bannerToUrl != null" >
+        banner_to_url,
+      </if>
+      <if test="bannerType != null" >
+        banner_type,
+      </if>
+      <if test="removeTime != null" >
+        remove_time,
+      </if>
+      <if test="removeContent != null" >
+        remove_content,
+      </if>
+      <if test="autoShowTime != null" >
+        auto_show_time,
+      </if>
+      <if test="autoHiddenTime != null" >
+        auto_hidden_time,
+      </if>
+      <if test="site != null" >
+        site,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        #{bannerId,jdbcType=INTEGER},
+      </if>
+      <if test="bannerCode != null" >
+        #{bannerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisable != null" >
+        #{isDisable,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="timeSign != null" >
+        #{timeSign,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerUrl != null" >
+        #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerToUrl != null" >
+        #{bannerToUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerType != null" >
+        #{bannerType,jdbcType=TINYINT},
+      </if>
+      <if test="removeTime != null" >
+        #{removeTime,jdbcType=BIGINT},
+      </if>
+      <if test="removeContent != null" >
+        #{removeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="autoShowTime != null" >
+        #{autoShowTime,jdbcType=BIGINT},
+      </if>
+      <if test="autoHiddenTime != null" >
+        #{autoHiddenTime,jdbcType=BIGINT},
+      </if>
+      <if test="site != null" >
+        #{site,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ocf.entity.BannerMCExample" resultType="java.lang.Integer" >
+    select count(*) from banner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update banner
+    <set >
+      <if test="record.bannerId != null" >
+        banner_id = #{record.bannerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bannerCode != null" >
+        banner_code = #{record.bannerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDisable != null" >
+        is_disable = #{record.isDisable,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.isActive != null" >
+        is_active = #{record.isActive,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.timeSign != null" >
+        time_sign = #{record.timeSign,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerUrl != null" >
+        banner_url = #{record.bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerToUrl != null" >
+        banner_to_url = #{record.bannerToUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bannerType != null" >
+        banner_type = #{record.bannerType,jdbcType=TINYINT},
+      </if>
+      <if test="record.removeTime != null" >
+        remove_time = #{record.removeTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.removeContent != null" >
+        remove_content = #{record.removeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.autoShowTime != null" >
+        auto_show_time = #{record.autoShowTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.autoHiddenTime != null" >
+        auto_hidden_time = #{record.autoHiddenTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.site != null" >
+        site = #{record.site,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update banner
+    set banner_id = #{record.bannerId,jdbcType=INTEGER},
+      banner_code = #{record.bannerCode,jdbcType=VARCHAR},
+      is_disable = #{record.isDisable,jdbcType=TINYINT},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      is_active = #{record.isActive,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      time_sign = #{record.timeSign,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      banner_url = #{record.bannerUrl,jdbcType=VARCHAR},
+      banner_to_url = #{record.bannerToUrl,jdbcType=VARCHAR},
+      banner_type = #{record.bannerType,jdbcType=TINYINT},
+      remove_time = #{record.removeTime,jdbcType=BIGINT},
+      remove_content = #{record.removeContent,jdbcType=VARCHAR},
+      auto_show_time = #{record.autoShowTime,jdbcType=BIGINT},
+      auto_hidden_time = #{record.autoHiddenTime,jdbcType=BIGINT},
+      site = #{record.site,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ocf.entity.BannerMC" >
+    update banner
+    <set >
+      <if test="bannerCode != null" >
+        banner_code = #{bannerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisable != null" >
+        is_disable = #{isDisable,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="isActive != null" >
+        is_active = #{isActive,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="timeSign != null" >
+        time_sign = #{timeSign,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerToUrl != null" >
+        banner_to_url = #{bannerToUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerType != null" >
+        banner_type = #{bannerType,jdbcType=TINYINT},
+      </if>
+      <if test="removeTime != null" >
+        remove_time = #{removeTime,jdbcType=BIGINT},
+      </if>
+      <if test="removeContent != null" >
+        remove_content = #{removeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="autoShowTime != null" >
+        auto_show_time = #{autoShowTime,jdbcType=BIGINT},
+      </if>
+      <if test="autoHiddenTime != null" >
+        auto_hidden_time = #{autoHiddenTime,jdbcType=BIGINT},
+      </if>
+      <if test="site != null" >
+        site = #{site,jdbcType=TINYINT},
+      </if>
+    </set>
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ocf.entity.BannerMC" >
+    update banner
+    set banner_code = #{bannerCode,jdbcType=VARCHAR},
+      is_disable = #{isDisable,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      is_active = #{isActive,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      time_sign = #{timeSign,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      banner_url = #{bannerUrl,jdbcType=VARCHAR},
+      banner_to_url = #{bannerToUrl,jdbcType=VARCHAR},
+      banner_type = #{bannerType,jdbcType=TINYINT},
+      remove_time = #{removeTime,jdbcType=BIGINT},
+      remove_content = #{removeContent,jdbcType=VARCHAR},
+      auto_show_time = #{autoShowTime,jdbcType=BIGINT},
+      auto_hidden_time = #{autoHiddenTime,jdbcType=BIGINT},
+      site = #{site,jdbcType=TINYINT}
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+</mapper>
