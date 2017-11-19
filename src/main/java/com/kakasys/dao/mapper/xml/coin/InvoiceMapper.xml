@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kakasys.dao.mapper.coin.InvoiceMapper" >
+  <resultMap id="BaseResultMap" type="com.kakasys.entity.coin.Invoice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="createdate" property="createdate" jdbcType="VARCHAR" />
+    <result column="buyname" property="buyname" jdbcType="VARCHAR" />
+    <result column="buyid" property="buyid" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="sellname" property="sellname" jdbcType="VARCHAR" />
+    <result column="sellid" property="sellid" jdbcType="VARCHAR" />
+    <result column="invoicecode" property="invoicecode" jdbcType="VARCHAR" />
+    <result column="invoicenumber" property="invoicenumber" jdbcType="VARCHAR" />
+    <result column="checkcode" property="checkcode" jdbcType="VARCHAR" />
+    <result column="capital" property="capital" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="VARCHAR" />
+    <result column="ratemoney" property="ratemoney" jdbcType="VARCHAR" />
+    <result column="moneyupper" property="moneyupper" jdbcType="VARCHAR" />
+    <result column="employeeid" property="employeeid" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="invoicetype" property="invoicetype" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="servicename" property="servicename" jdbcType="VARCHAR" />
+    <result column="totalratemoney" property="totalratemoney" jdbcType="VARCHAR" />
+    <result column="totalcapital" property="totalcapital" jdbcType="VARCHAR" />
+    <result column="form_id" property="formId" jdbcType="VARCHAR" />
+    <result column="fare_type_name" property="fareTypeName" jdbcType="VARCHAR" />
+    <result column="message_id" property="messageId" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="has_upload_oss" property="hasUploadOss" jdbcType="BIT" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createdate, buyname, buyid, money, sellname, sellid, invoicecode, invoicenumber, 
+    checkcode, capital, rate, ratemoney, moneyupper, employeeid, url, typeid, content, 
+    status, invoicetype, type, userid, title, servicename, totalratemoney, totalcapital, 
+    form_id, fare_type_name, message_id, color, icon, has_upload_oss, is_delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kakasys.entity.coin.InvoiceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from invoice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from invoice
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from invoice
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kakasys.entity.coin.InvoiceExample" >
+    delete from invoice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kakasys.entity.coin.Invoice" >
+    insert into invoice (id, createdate, buyname, 
+      buyid, money, sellname, 
+      sellid, invoicecode, invoicenumber, 
+      checkcode, capital, rate, 
+      ratemoney, moneyupper, employeeid, 
+      url, typeid, content, 
+      status, invoicetype, type, 
+      userid, title, servicename, 
+      totalratemoney, totalcapital, form_id, 
+      fare_type_name, message_id, color, 
+      icon, has_upload_oss, is_delete
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{buyname,jdbcType=VARCHAR}, 
+      #{buyid,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, #{sellname,jdbcType=VARCHAR}, 
+      #{sellid,jdbcType=VARCHAR}, #{invoicecode,jdbcType=VARCHAR}, #{invoicenumber,jdbcType=VARCHAR}, 
+      #{checkcode,jdbcType=VARCHAR}, #{capital,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, 
+      #{ratemoney,jdbcType=VARCHAR}, #{moneyupper,jdbcType=VARCHAR}, #{employeeid,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{invoicetype,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{userid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{servicename,jdbcType=VARCHAR}, 
+      #{totalratemoney,jdbcType=VARCHAR}, #{totalcapital,jdbcType=VARCHAR}, #{formId,jdbcType=VARCHAR}, 
+      #{fareTypeName,jdbcType=VARCHAR}, #{messageId,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{hasUploadOss,jdbcType=BIT}, #{isDelete,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kakasys.entity.coin.Invoice" >
+    insert into invoice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdate != null" >
+        createdate,
+      </if>
+      <if test="buyname != null" >
+        buyname,
+      </if>
+      <if test="buyid != null" >
+        buyid,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="sellname != null" >
+        sellname,
+      </if>
+      <if test="sellid != null" >
+        sellid,
+      </if>
+      <if test="invoicecode != null" >
+        invoicecode,
+      </if>
+      <if test="invoicenumber != null" >
+        invoicenumber,
+      </if>
+      <if test="checkcode != null" >
+        checkcode,
+      </if>
+      <if test="capital != null" >
+        capital,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="ratemoney != null" >
+        ratemoney,
+      </if>
+      <if test="moneyupper != null" >
+        moneyupper,
+      </if>
+      <if test="employeeid != null" >
+        employeeid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="typeid != null" >
+        typeid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invoicetype != null" >
+        invoicetype,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="servicename != null" >
+        servicename,
+      </if>
+      <if test="totalratemoney != null" >
+        totalratemoney,
+      </if>
+      <if test="totalcapital != null" >
+        totalcapital,
+      </if>
+      <if test="formId != null" >
+        form_id,
+      </if>
+      <if test="fareTypeName != null" >
+        fare_type_name,
+      </if>
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="hasUploadOss != null" >
+        has_upload_oss,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="buyname != null" >
+        #{buyname,jdbcType=VARCHAR},
+      </if>
+      <if test="buyid != null" >
+        #{buyid,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="sellname != null" >
+        #{sellname,jdbcType=VARCHAR},
+      </if>
+      <if test="sellid != null" >
+        #{sellid,jdbcType=VARCHAR},
+      </if>
+      <if test="invoicecode != null" >
+        #{invoicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoicenumber != null" >
+        #{invoicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="checkcode != null" >
+        #{checkcode,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null" >
+        #{capital,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="ratemoney != null" >
+        #{ratemoney,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyupper != null" >
+        #{moneyupper,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeid != null" >
+        #{employeeid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="invoicetype != null" >
+        #{invoicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="servicename != null" >
+        #{servicename,jdbcType=VARCHAR},
+      </if>
+      <if test="totalratemoney != null" >
+        #{totalratemoney,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcapital != null" >
+        #{totalcapital,jdbcType=VARCHAR},
+      </if>
+      <if test="formId != null" >
+        #{formId,jdbcType=VARCHAR},
+      </if>
+      <if test="fareTypeName != null" >
+        #{fareTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="hasUploadOss != null" >
+        #{hasUploadOss,jdbcType=BIT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kakasys.entity.coin.InvoiceExample" resultType="java.lang.Integer" >
+    select count(*) from invoice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update invoice
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createdate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyname != null" >
+        buyname = #{record.buyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyid != null" >
+        buyid = #{record.buyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellname != null" >
+        sellname = #{record.sellname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellid != null" >
+        sellid = #{record.sellid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoicecode != null" >
+        invoicecode = #{record.invoicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoicenumber != null" >
+        invoicenumber = #{record.invoicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkcode != null" >
+        checkcode = #{record.checkcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capital != null" >
+        capital = #{record.capital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ratemoney != null" >
+        ratemoney = #{record.ratemoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moneyupper != null" >
+        moneyupper = #{record.moneyupper,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeid != null" >
+        employeeid = #{record.employeeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeid != null" >
+        typeid = #{record.typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.invoicetype != null" >
+        invoicetype = #{record.invoicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicename != null" >
+        servicename = #{record.servicename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalratemoney != null" >
+        totalratemoney = #{record.totalratemoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalcapital != null" >
+        totalcapital = #{record.totalcapital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formId != null" >
+        form_id = #{record.formId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fareTypeName != null" >
+        fare_type_name = #{record.fareTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageId != null" >
+        message_id = #{record.messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null" >
+        color = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icon != null" >
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasUploadOss != null" >
+        has_upload_oss = #{record.hasUploadOss,jdbcType=BIT},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update invoice
+    set id = #{record.id,jdbcType=VARCHAR},
+      createdate = #{record.createdate,jdbcType=VARCHAR},
+      buyname = #{record.buyname,jdbcType=VARCHAR},
+      buyid = #{record.buyid,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=VARCHAR},
+      sellname = #{record.sellname,jdbcType=VARCHAR},
+      sellid = #{record.sellid,jdbcType=VARCHAR},
+      invoicecode = #{record.invoicecode,jdbcType=VARCHAR},
+      invoicenumber = #{record.invoicenumber,jdbcType=VARCHAR},
+      checkcode = #{record.checkcode,jdbcType=VARCHAR},
+      capital = #{record.capital,jdbcType=VARCHAR},
+      rate = #{record.rate,jdbcType=VARCHAR},
+      ratemoney = #{record.ratemoney,jdbcType=VARCHAR},
+      moneyupper = #{record.moneyupper,jdbcType=VARCHAR},
+      employeeid = #{record.employeeid,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      typeid = #{record.typeid,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      invoicetype = #{record.invoicetype,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      servicename = #{record.servicename,jdbcType=VARCHAR},
+      totalratemoney = #{record.totalratemoney,jdbcType=VARCHAR},
+      totalcapital = #{record.totalcapital,jdbcType=VARCHAR},
+      form_id = #{record.formId,jdbcType=VARCHAR},
+      fare_type_name = #{record.fareTypeName,jdbcType=VARCHAR},
+      message_id = #{record.messageId,jdbcType=VARCHAR},
+      color = #{record.color,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      has_upload_oss = #{record.hasUploadOss,jdbcType=BIT},
+      is_delete = #{record.isDelete,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kakasys.entity.coin.Invoice" >
+    update invoice
+    <set >
+      <if test="createdate != null" >
+        createdate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="buyname != null" >
+        buyname = #{buyname,jdbcType=VARCHAR},
+      </if>
+      <if test="buyid != null" >
+        buyid = #{buyid,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="sellname != null" >
+        sellname = #{sellname,jdbcType=VARCHAR},
+      </if>
+      <if test="sellid != null" >
+        sellid = #{sellid,jdbcType=VARCHAR},
+      </if>
+      <if test="invoicecode != null" >
+        invoicecode = #{invoicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoicenumber != null" >
+        invoicenumber = #{invoicenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="checkcode != null" >
+        checkcode = #{checkcode,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null" >
+        capital = #{capital,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="ratemoney != null" >
+        ratemoney = #{ratemoney,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyupper != null" >
+        moneyupper = #{moneyupper,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeid != null" >
+        employeeid = #{employeeid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        typeid = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="invoicetype != null" >
+        invoicetype = #{invoicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="servicename != null" >
+        servicename = #{servicename,jdbcType=VARCHAR},
+      </if>
+      <if test="totalratemoney != null" >
+        totalratemoney = #{totalratemoney,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcapital != null" >
+        totalcapital = #{totalcapital,jdbcType=VARCHAR},
+      </if>
+      <if test="formId != null" >
+        form_id = #{formId,jdbcType=VARCHAR},
+      </if>
+      <if test="fareTypeName != null" >
+        fare_type_name = #{fareTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        message_id = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="hasUploadOss != null" >
+        has_upload_oss = #{hasUploadOss,jdbcType=BIT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kakasys.entity.coin.Invoice" >
+    update invoice
+    set createdate = #{createdate,jdbcType=VARCHAR},
+      buyname = #{buyname,jdbcType=VARCHAR},
+      buyid = #{buyid,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      sellname = #{sellname,jdbcType=VARCHAR},
+      sellid = #{sellid,jdbcType=VARCHAR},
+      invoicecode = #{invoicecode,jdbcType=VARCHAR},
+      invoicenumber = #{invoicenumber,jdbcType=VARCHAR},
+      checkcode = #{checkcode,jdbcType=VARCHAR},
+      capital = #{capital,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=VARCHAR},
+      ratemoney = #{ratemoney,jdbcType=VARCHAR},
+      moneyupper = #{moneyupper,jdbcType=VARCHAR},
+      employeeid = #{employeeid,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      typeid = #{typeid,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      invoicetype = #{invoicetype,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      servicename = #{servicename,jdbcType=VARCHAR},
+      totalratemoney = #{totalratemoney,jdbcType=VARCHAR},
+      totalcapital = #{totalcapital,jdbcType=VARCHAR},
+      form_id = #{formId,jdbcType=VARCHAR},
+      fare_type_name = #{fareTypeName,jdbcType=VARCHAR},
+      message_id = #{messageId,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      has_upload_oss = #{hasUploadOss,jdbcType=BIT},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
